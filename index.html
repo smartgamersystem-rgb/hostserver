@@ -1,235 +1,289 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Crypto Strategy Dashboard - Osmin</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NeoDAG — High Performance Blockchain Infrastructure</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
+:root{
+ --bg:#0a0b0e;
+ --panel:#12131a;
+ --panel2:#171923;
+ --gold:#f5c76a;
+ --text:#e6e6e6;
+ --muted:#9aa0aa;
+}
+
+*{
+ box-sizing:border-box;
+ -webkit-user-select:none;
+ -moz-user-select:none;
+ -ms-user-select:none;
+ user-select:none;
+}
+
 body{
-    background:#0f0f0f;
-    color:#f0f0f0;
-    font-family:Arial, sans-serif;
-    margin:0;
+ margin:0;
+ font-family:'Inter',sans-serif;
+ background:radial-gradient(circle at top,#12131a,#050608);
+ color:var(--text);
 }
+
 header{
-    background:#1a1a1a;
-    text-align:center;
-    padding:20px;
-    font-size:24px;
-    font-weight:bold;
-    color:#ffd700;
+ padding:40px 20px;
+ text-align:center;
+ background:linear-gradient(180deg,#0f1118,#0a0b0e);
 }
+
+header h1{
+ margin:0;
+ font-size:38px;
+ font-weight:700;
+ color:var(--gold)
+}
+
+header p{
+ margin-top:10px;
+ color:var(--muted);
+ font-size:16px
+}
+
 .lang-buttons{
-    text-align:center;
-    margin:15px 0;
+ text-align:center;
+ margin:20px
 }
+
 .lang-buttons button{
-    padding:8px 14px;
-    margin:0 5px;
-    font-size:14px;
-    cursor:pointer;
-    border:none;
-    border-radius:6px;
-    font-weight:bold;
+ background:var(--panel2);
+ color:var(--text);
+ border:1px solid #222;
+ border-radius:10px;
+ padding:8px 16px;
+ margin:0 5px;
+ cursor:pointer;
+ font-weight:600
 }
+
 .container{
-    max-width:900px;
-    margin:20px auto;
-    background:#1a1a1a;
-    padding:25px;
-    border-radius:15px;
-    box-shadow:0 0 20px rgba(255,215,0,.25);
+ max-width:1200px;
+ margin:0 auto;
+ padding:30px
 }
-label{
-    display:block;
-    margin-top:10px;
+
+.section{
+ margin-top:60px
 }
-input, select{
-    width:100%;
-    padding:10px;
-    margin-top:5px;
-    border-radius:8px;
-    border:none;
+
+.section h2{
+ text-align:center;
+ font-size:28px;
+ color:var(--gold);
+ margin-bottom:25px
 }
-button.calc{
-    margin-top:15px;
-    padding:12px;
-    width:100%;
-    font-size:18px;
-    background:#ffd700;
-    border:none;
-    border-radius:10px;
-    font-weight:bold;
-    cursor:pointer;
+
+.grid{
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+ gap:24px
 }
-.result{
-    margin-top:15px;
-    background:#262626;
-    padding:15px;
-    border-radius:10px;
-    text-align:center;
+
+.card{
+ background:linear-gradient(180deg,var(--panel2),var(--panel));
+ border-radius:18px;
+ padding:22px;
+ border:1px solid #222;
+ box-shadow:0 10px 40px rgba(0,0,0,.5)
 }
-canvas{
-    margin-top:30px;
+
+.card strong{color:var(--gold)}
+
+.hero-metrics{
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+ gap:20px;
+ margin-top:40px
 }
+
+.metric{
+ text-align:center;
+ padding:25px;
+ border-radius:20px;
+ background:linear-gradient(180deg,#141625,#0e1018);
+ border:1px solid #1f2233
+}
+
+.metric h3{
+ margin:0;
+ font-size:28px;
+ color:var(--gold)
+}
+
+.metric span{
+ font-size:14px;
+ color:var(--muted)
+}
+
+button.primary{
+ background:linear-gradient(180deg,#ffd98a,#f5c76a);
+ color:#111;
+ border:none;
+ border-radius:14px;
+ padding:16px 26px;
+ font-size:16px;
+ font-weight:700;
+ cursor:pointer;
+ margin-top:25px
+}
+
 .note{
-    margin-top:30px;
-    padding:15px;
-    background:#262626;
-    border-radius:10px;
-    font-size:14px;
-    color:#ccc;
-    text-align:center;
+ margin-top:40px;
+ padding:20px;
+ border-radius:18px;
+ background:linear-gradient(180deg,#12131a,#0c0d13);
+ border:1px solid #222;
+ color:var(--muted);
+ text-align:center
 }
+
 footer{
-    text-align:center;
-    margin:30px 0 15px;
-    font-size:14px;
-    color:#aaa;
+ margin-top:80px;
+ padding:30px;
+ text-align:center;
+ color:#888;
+ border-top:1px solid #1f2233
 }
+
+canvas{margin-top:30px}
 </style>
 </head>
 
 <body>
 
-<header id="title">Crypto Investment Strategy — Osmin</header>
+<header>
+<h1 id="title">NeoDAG Blockchain</h1>
+<p id="subtitle">Ultra-scalable DAG-based infrastructure for the next generation of Web3</p>
+
+<div class="hero-metrics">
+ <div class="metric"><h3>500K+</h3><span>TPS</span></div>
+ <div class="metric"><h3>&lt;1s</h3><span>Finality</span></div>
+ <div class="metric"><h3>Hybrid</h3><span>DAG + PoS</span></div>
+ <div class="metric"><h3>Quantum-Ready</h3><span>Security</span></div>
+</div>
+</header>
 
 <div class="lang-buttons">
-    <button onclick="setLanguage('es')">🇪🇸 Español</button>
-    <button onclick="setLanguage('en')">🇺🇸 English</button>
+<button onclick="setLang('en')">English</button>
+<button onclick="setLang('es')">Español</button>
 </div>
 
 <div class="container">
 
-<label id="labelCrypto">Cryptocurrency</label>
-<select id="crypto">
-    <option>XRP</option>
-    <option>Bitcoin</option>
-    <option>Cardano</option>
-</select>
-
-<label id="labelInvestment">Investment Amount ($)</label>
-<input type="number" id="investment" placeholder="Enter amount">
-
-<label id="labelMonths">Months</label>
-<select id="months">
-    <option value="1">1</option>
-    <option value="2">2</option>
-</select>
-
-<button class="calc" onclick="calculate()" id="calcBtn">
-Calculate Profit
-</button>
-
-<div class="result" id="result">
-Result will appear here
+<div class="section">
+<h2 id="overview">Network Overview</h2>
+<div class="grid">
+ <div class="card"><strong>Consensus</strong><br>Hybrid BlockDAG + Proof-of-Stake</div>
+ <div class="card"><strong>Smart Contracts</strong><br>EVM & WASM Native Execution</div>
+ <div class="card"><strong>Privacy</strong><br>zk-Transactions Layer</div>
+ <div class="card"><strong>Interoperability</strong><br>Native Cross-Chain Bridges</div>
+ <div class="card"><strong>Energy</strong><br>Ultra-Low Carbon Footprint</div>
+ <div class="card"><strong>Governance</strong><br>On-Chain DAO Voting</div>
+</div>
 </div>
 
-<canvas id="lineChart"></canvas>
-
-<hr style="margin:40px 0; border:1px solid #333;">
-
-<h2 id="strategyTitle" style="text-align:center;color:#ffd700;">
-Investment Strategy (Target Vision)
-</h2>
-
-<canvas id="strategyChart"></canvas>
-
-<div class="note" id="note-es">
-⚠️ <strong>Nota:</strong> Este contenido es únicamente con fines educativos e informativos.
-No constituye asesoría financiera ni una recomendación de inversión.
-Invertir en criptomonedas implica riesgos.
+<div class="section">
+<h2 id="market">Top 50 Crypto Liquidity Index</h2>
+<canvas id="liquidityChart"></canvas>
 </div>
 
-<div class="note" id="note-en" style="display:none;">
-⚠️ <strong>Note:</strong> This content is for educational and informational purposes only.
-It does not constitute financial advice or an investment recommendation.
-Investing in cryptocurrencies involves risks.
+<div class="section">
+<h2 id="tokenomics">Tokenomics & Community Model</h2>
+<div class="grid">
+ <div class="card"><strong>30%</strong><br>Core Team (Vesting)</div>
+ <div class="card"><strong>70%</strong><br>Community & Ecosystem</div>
+ <div class="card"><strong>No Public Sales</strong></div>
+ <div class="card"><strong>Community Access Only</strong></div>
+</div>
+
+<div class="note" id="communityNote">
+This project is entirely community-driven. No public token sales are accepted.
+</div>
+</div>
+
+<div class="section">
+<h2 id="trust">Trust, Audit & Legal</h2>
+<div class="grid">
+ <div class="card"><strong>Security Audit</strong><br>CertiK — Planned</div>
+ <div class="card"><strong>Company</strong><br>Registered LLC — Florida</div>
+ <div class="card"><strong>Custody</strong><br>Multi-Signature</div>
+</div>
+
+<div style="text-align:center">
+<button class="primary" id="testBtn">TEST — Simulate Transaction</button>
+</div>
+</div>
+
+<div class="note" id="note">
+🚀 <strong>Coming 2026</strong><br>
+⚠️ Educational & informational only.
 </div>
 
 </div>
 
 <footer>
-&copy; 2025 Osmin | Instagram: <strong>@manuellovesweety</strong> | Miami Downtown
+© 2026 NeoDAG Blockchain — All Rights Reserved<br>
+Instagram: <strong>@manuellovesweety</strong>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
-let currentLang = "en";
-let lineChartObj;
+// ======= BLOQUEOS =======
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('selectstart', e => e.preventDefault());
+document.addEventListener('copy', e => e.preventDefault());
+document.addEventListener('cut', e => e.preventDefault());
+document.addEventListener('paste', e => e.preventDefault());
 
-function calculate(){
-    const investment = parseFloat(document.getElementById("investment").value);
-    const months = parseInt(document.getElementById("months").value);
-    const multiplier = 6;
-
-    if(!investment || investment <= 0){
-        alert("Enter a valid amount");
-        return;
-    }
-
-    const profit = investment * multiplier * months;
-
-    document.getElementById("result").innerHTML =
-        currentLang === "es"
-        ? `Ganancia estimada: <strong>$${profit.toLocaleString()}</strong>`
-        : `Estimated profit: <strong>$${profit.toLocaleString()}</strong>`;
-
-    if(lineChartObj) lineChartObj.destroy();
-
-    const ctx = document.getElementById("lineChart");
-    lineChartObj = new Chart(ctx,{
-        type:"line",
-        data:{
-            labels:["Month 1","Month 2"],
-            datasets:[{
-                label:"Growth",
-                data:[investment*multiplier, investment*multiplier*2],
-                borderWidth:3,
-                fill:true
-            }]
-        }
-    });
-}
-
-function setLanguage(lang){
-    currentLang = lang;
-    document.getElementById("note-es").style.display = lang === "es" ? "block" : "none";
-    document.getElementById("note-en").style.display = lang === "en" ? "block" : "none";
-
-    document.getElementById("title").innerText =
-        lang === "es" ? "Estrategia de Inversión Cripto — Osmin" : "Crypto Investment Strategy — Osmin";
-    document.getElementById("labelCrypto").innerText =
-        lang === "es" ? "Criptomoneda" : "Cryptocurrency";
-    document.getElementById("labelInvestment").innerText =
-        lang === "es" ? "Monto a invertir ($)" : "Investment Amount ($)";
-    document.getElementById("labelMonths").innerText =
-        lang === "es" ? "Meses" : "Months";
-    document.getElementById("calcBtn").innerText =
-        lang === "es" ? "Calcular Ganancia" : "Calculate Profit";
-    document.getElementById("strategyTitle").innerText =
-        lang === "es" ? "Estrategia de Inversión (Visión)" : "Investment Strategy (Target Vision)";
-}
-
-new Chart(document.getElementById("strategyChart"),{
-    type:"pie",
-    data:{
-        labels:[
-            "XRP (Buy $2.50 → Sell $6)",
-            "Bitcoin (Buy $89k → Sell $180k)",
-            "Cardano (Sell $2.10)",
-            "Memecoin / Jupiter / Custodian"
-        ],
-        datasets:[{
-            data:[30,30,20,20],
-            backgroundColor:["#ffd700","#f7931a","#3cc8c8","#9b59b6"]
-        }]
-    }
+document.addEventListener('keydown', e => {
+ if (
+  e.key === 'F12' ||
+  (e.ctrlKey && e.shiftKey && ['I','J','C'].includes(e.key)) ||
+  (e.ctrlKey && e.key === 'U')
+ ) {
+  e.preventDefault();
+ }
 });
+
+// ======= ANTI SCREENSHOT (BLUR) =======
+document.addEventListener("visibilitychange",()=>{
+ document.body.style.filter = document.hidden ? "blur(18px)" : "none";
+});
+
+// ======= IDIOMAS =======
+function setLang(l){
+ if(l==='es'){
+  overview.innerText='Resumen de la Red';
+  market.innerText='Índice de Liquidez Top 50 Cripto';
+  tokenomics.innerText='Tokenómica y Modelo Comunitario';
+  trust.innerText='Confianza, Auditoría y Legal';
+ }
+}
+
+// ======= CHART =======
+const labels=["BTC","ETH","BNB","SOL","XRP","ADA","AVAX","DOGE","DOT","TRX"];
+new Chart(liquidityChart,{
+ type:'bar',
+ data:{labels:labels,datasets:[{data:labels.map(()=>Math.random()*900+200)}]},
+ options:{plugins:{legend:{display:false}}}
+});
+
+testBtn.onclick=()=>alert('Transaction simulated successfully');
 </script>
 
 </body>
 </html>
+
 
